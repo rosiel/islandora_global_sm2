@@ -6,3 +6,32 @@ ul#gsm2-playlist li a {
     font-size: 90%;
     vertical-align: middle;
 }
+
+.sm2-bar-ui .sm2-main-controls,
+.sm2-bar-ui .sm2-playlist-drawer {
+    background-color: #9a4f50;
+}
+
+.sm2-bar-ui.fixed {
+    z-index: 99;
+}
+
+.gsm2-playable-link.silent:after {
+    content: '  \f026';
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    padding-left: 4px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.gsm2-playable-link.playing:after {
+    content: '  \f028';
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    padding-left: 4px;
+    text-decoration: none;
+    display: inline-block;
+}

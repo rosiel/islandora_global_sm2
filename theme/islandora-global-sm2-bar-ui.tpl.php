@@ -5,6 +5,7 @@
  */
 ?>
 
+<div class="spacer" style="height: 42px; width: 100%"></div>
 <div class="sm2-bar-ui full-width fixed">
 
   <div class="bd sm2-main-controls">

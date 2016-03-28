@@ -21,7 +21,6 @@ function islandora_global_sm2_block_view($delta) {
     if (file_exists(libraries_get_path('fontawesome') . '/css/font-awesome.css')) {
       drupal_add_css(libraries_get_path('fontawesome') . '/css/font-awesome.css');
     }
-
     drupal_add_css(drupal_get_path('module', 'islandora_audiojs_global') . '/css/audiojs_global.css');
     $block['subject'] = '';
     $block['content'] = islandora_global_sm2_content();
@@ -41,11 +40,15 @@ function islandora_global_sm2_content() {
   drupal_add_css($sm2_path . '/demo/bar-ui/css/bar-ui.css');
   // Add my custom css.
   drupal_add_css(drupal_get_path('module', 'islandora_global_sm2') . '/css/player.css');
-// make this and add it on document ready or something.
+
+  // Add custom js before initializing player.
   drupal_add_js(drupal_get_path('module', 'islandora_global_sm2') . '/js/initialize.js', array('group' => JS_DEFAULT, 'weight' => 5));
 
-  // Add this to behaviours with heavier weight.
+  // Initialize Player.
   drupal_add_js($sm2_path . '/demo/bar-ui/script/bar-ui.js', array('group' => JS_THEME, 'weight' => 9));
+
+  // Append to initialized player.
+  drupal_add_js(drupal_get_path('module', 'islandora_global_sm2') . '/js/postinit.js', array('group' => JS_THEME, 'weight' => 10));
 
   $content = array();
   $content['#theme'] = 'islandora_global_sm2_bar_ui';
