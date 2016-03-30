@@ -4,6 +4,8 @@
  * http://www.schillmania.com/projects/soundmanager2/
  * Code provided under BSD license.
  * http://schillmania.com/projects/soundmanager2/license.txt
+ *
+ * Modified 2016 for global bar-ui player.
  */
 
 .sm2-bar-ui {
@@ -548,7 +550,7 @@
  background-size: 56%;
 }
 
-.volume-shade {
+.sm2-button-bd .volume-shade {
  filter: alpha(opacity=33); /* <= IE 8 */
  opacity: 0.33;
 /* -webkit-filter: invert(1);*/
@@ -556,25 +558,25 @@
  background-image: none, url(../image/icomoon/entypo-25px-000000/SVG/volume.svg);
 }
 
-.menu {
+.sm2-button-bd .menu {
  background-image: url(../image/icomoon/entypo-25px-ffffff/PNG/list2.png);
  background-image: none, url(../image/icomoon/entypo-25px-ffffff/SVG/list2.svg);
  background-size: 58%;
  background-position: 54% 51%;
 }
 
-.previous {
+.sm2-button-bd .previous {
  background-image: url(../image/icomoon/entypo-25px-ffffff/PNG/first.png);
  background-image: none, url(../image/icomoon/entypo-25px-ffffff/SVG/first.svg);
 }
 
-.next {
+.sm2-button-bd .next {
  background-image: url(../image/icomoon/entypo-25px-ffffff/PNG/last.png);
  background-image: none, url(../image/icomoon/entypo-25px-ffffff/SVG/last.svg);
 }
 
-.previous,
-.next {
+.sm2-button-bd .previous,
+.sm2-button-bd .next {
  background-size: 49.5%;
  background-position: 50% 50%;
 }
@@ -585,14 +587,14 @@
  backgound-size: 53%;
 }
 
-.shuffle {
+.sm2-button-bd .shuffle {
  background-image: url(../image/icomoon/entypo-25px-ffffff/PNG/shuffle.png);
  background-image: none, url(../image/icomoon/entypo-25px-ffffff/SVG/shuffle.svg);
  background-size: 45%;
  background-position: 50% 50%;
 }
 
-.repeat {
+.sm2-button-bd .repeat {
  background-image: url(../image/icomoon/entypo-25px-ffffff/PNG/loop.png);
  background-image: none, url(../image/icomoon/entypo-25px-ffffff/SVG/loop.svg);
  background-position: 50% 43%;
