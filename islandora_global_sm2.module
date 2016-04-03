@@ -5,12 +5,11 @@
 function islandora_global_sm2_block_info() {
   return array(
     'global_sm2' => array(
-      'info' => 'SoundManager2 Player',
+      'info' => 'Global SoundManager2 Player',
       'cache' => DRUPAL_NO_CACHE,
     ),
   );
 }
-
 
 /**
  *  Implements hook_block_view().
@@ -18,10 +17,6 @@ function islandora_global_sm2_block_info() {
 function islandora_global_sm2_block_view($delta) {
   $block = array();
   if ($delta == 'global_sm2') {
-    if (file_exists(libraries_get_path('fontawesome') . '/css/font-awesome.css')) {
-      drupal_add_css(libraries_get_path('fontawesome') . '/css/font-awesome.css');
-    }
-    drupal_add_css(drupal_get_path('module', 'islandora_audiojs_global') . '/css/audiojs_global.css');
     $block['subject'] = '';
     $block['content'] = islandora_global_sm2_content();
   }
@@ -32,25 +27,51 @@ function islandora_global_sm2_block_view($delta) {
  * Generate the content of the global player block.
  */
 function islandora_global_sm2_content() {
+  $content = array();
 
-  $sm2_path = libraries_get_path("SoundManager2");
-  drupal_add_js($sm2_path . "/script/soundmanager2.js", array('group' => JS_LIBRARY, 'weight' => 0)); //TODO: minify me
+  if (file_exists(libraries_get_path('fontawesome') . '/css/font-awesome.css')) {
+    drupal_add_css(libraries_get_path('fontawesome') . '/css/font-awesome.css');
+  }
+  $sm2_path = libraries_get_path("soundmanager2");
+  // Add the soundmanager2 javascript file, either the minified one or the regular one.
+  drupal_add_js($sm2_path . "/script/soundmanager2.js", array('group' => JS_LIBRARY, 'weight' => 0));
+  //drupal_add_js($sm2_path . "/script/soundmanager2-nodebug-jsmin.js", array('group' => JS_LIBRARY, 'weight' => 0));
 
-  // Add bar-ui
-  drupal_add_css($sm2_path . '/demo/bar-ui/css/bar-ui.css');
-  // Add my custom css.
+  $mod_path = drupal_get_path('module', 'islandora_global_sm2');
+
+  // Add CSS
+  drupal_add_css($mod_path . '/bar-ui/css/bar-ui.css');
   drupal_add_css(drupal_get_path('module', 'islandora_global_sm2') . '/css/player.css');
 
-  // Add custom js before initializing player.
-  drupal_add_js(drupal_get_path('module', 'islandora_global_sm2') . '/js/initialize.js', array('group' => JS_DEFAULT, 'weight' => 5));
+  // Add swf path for flash fallback.
+  $swf_url = file_create_url($sm2_path . "/swf/");
+  $content['#attached']['js'][] = array(
+    'type' => 'setting',
+    'data' => array('islandora_global_sm2' => array('url' => $swf_url)),
+  );
 
+  // Create playlist before initializing player.
+  $content['#attached']['js'][] = array(
+    'type' => 'file',
+    'data' => $mod_path . '/js/initialize.js',
+    'group' => JS_THEME,
+    'weight' => 5,
+  );
   // Initialize Player.
-  drupal_add_js($sm2_path . '/demo/bar-ui/script/bar-ui.js', array('group' => JS_THEME, 'weight' => 9));
-
+  $content['#attached']['js'][] = array(
+    'type' => 'file',
+    'data' => $mod_path . '/bar-ui/script/bar-ui.js',
+    'group' => JS_THEME,
+    'weight' => 9
+  );
   // Append to initialized player.
-  drupal_add_js(drupal_get_path('module', 'islandora_global_sm2') . '/js/postinit.js', array('group' => JS_THEME, 'weight' => 10));
+  $content['#attached']['js'][] = array(
+    'type' => 'file',
+    'data' => $mod_path . '/js/postinit.js',
+    'group' => JS_THEME,
+    'weight' => 10
+  );
 
-  $content = array();
   $content['#theme'] = 'islandora_global_sm2_bar_ui';
   $content['a'] = array('#markup' => 'foo'); // Theme needs a render element.
   return $content;
