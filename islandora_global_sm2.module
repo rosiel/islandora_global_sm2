@@ -34,8 +34,8 @@ function islandora_global_sm2_content() {
   }
   $sm2_path = libraries_get_path("soundmanager2");
   // Add the soundmanager2 javascript file, either the minified one or the regular one.
-  drupal_add_js($sm2_path . "/script/soundmanager2.js", array('group' => JS_LIBRARY, 'weight' => 0));
-  //drupal_add_js($sm2_path . "/script/soundmanager2-nodebug-jsmin.js", array('group' => JS_LIBRARY, 'weight' => 0));
+  //drupal_add_js($sm2_path . "/script/soundmanager2.js", array('group' => JS_LIBRARY, 'weight' => 0));
+  drupal_add_js($sm2_path . "/script/soundmanager2-nodebug-jsmin.js", array('group' => JS_LIBRARY, 'weight' => 0));
 
   $mod_path = drupal_get_path('module', 'islandora_global_sm2');
 
